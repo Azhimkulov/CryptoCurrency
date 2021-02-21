@@ -5,7 +5,7 @@ package us.azhimkulov.data.entity
  */
 data class CryptoEntity(
     val id: String,
-    val icon: String,
+    val icon: String?,
     val name: String,
     val symbol: String,
     val price: Double,

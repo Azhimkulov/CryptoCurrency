@@ -8,7 +8,7 @@ import us.azhimkulov.cryptocurrency.view.custom.UltimateRecyclerView
  * Created by azamat  on 2/21/21.
  */
 
-@BindingAdapter("ultimateRV:adapter")
+@BindingAdapter("app:adapter")
 fun setAdapter(ultimateRecyclerView: UltimateRecyclerView, ultimateAdapter: UltimateAdapter) {
     ultimateRecyclerView.setAdapter(ultimateAdapter)
 }
