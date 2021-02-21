@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import us.azhimkulov.cryptocurrency.R
 import us.azhimkulov.cryptocurrency.databinding.FragmentCryptoCollectionBinding
 import us.azhimkulov.cryptocurrency.internal.di.component.CryptoCollectionComponent
-import us.azhimkulov.cryptocurrency.view.CryptoCollectionViewModel
+import us.azhimkulov.cryptocurrency.view.viewmodel.CryptoCollectionViewModel
 import javax.inject.Inject
 
 /**

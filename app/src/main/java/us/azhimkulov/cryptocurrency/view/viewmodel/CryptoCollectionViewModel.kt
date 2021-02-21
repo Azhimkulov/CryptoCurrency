@@ -1,4 +1,4 @@
-package us.azhimkulov.cryptocurrency.view
+package us.azhimkulov.cryptocurrency.view.viewmodel
 
 import android.util.Log
 import androidx.databinding.ObservableField
@@ -44,19 +44,17 @@ class CryptoCollectionViewModel @Inject constructor(
 
     private inner class CryptsObserver : DisposableObserver<Collection<CryptoModel>>() {
         override fun onNext(t: Collection<CryptoModel>) {
-            Log.d("CRYPTO_COLLECTION", "onNext")
             collection.clear()
             collection.addAll(t)
             ultimateAdapter.notifyDataSetChanged()
         }
 
         override fun onError(e: Throwable) {
-            Log.d("CRYPTO_COLLECTION", e.message ?: "empty")
+            Log.d("OBSERVABLE_FAILED", e.message ?: "Throwable message is empty")
             isLoading.set(false)
         }
 
         override fun onComplete() {
-            Log.d("CRYPTO_COLLECTION", "onComplete")
             isLoading.set(false)
         }
     }
