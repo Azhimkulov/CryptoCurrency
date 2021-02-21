@@ -16,7 +16,7 @@ class CryptoEntityDataMapper @Inject constructor() :
             entity.name,
             entity.symbol,
             entity.price,
-            entity.websiteUrl
+            entity.websiteUrl ?: ""
         )
     }
 }

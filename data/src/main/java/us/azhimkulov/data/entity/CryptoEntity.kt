@@ -9,5 +9,5 @@ data class CryptoEntity(
     val name: String,
     val symbol: String,
     val price: Double,
-    val websiteUrl: String
+    val websiteUrl: String?
 )

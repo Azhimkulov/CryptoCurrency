@@ -17,7 +17,7 @@ class CryptoDataRepository @Inject constructor(
 
     companion object {
         private const val SKIP_CONSTANT = 0
-        private const val LIMIT_CONSTANT = 0
+        private const val LIMIT_CONSTANT = 20
         private const val CURRENCY_CONSTANT = "EUR"
     }
 
@@ -25,7 +25,7 @@ class CryptoDataRepository @Inject constructor(
         return restClient.getCryptoApi()
             .getCoins(SKIP_CONSTANT, LIMIT_CONSTANT, CURRENCY_CONSTANT)
             .map {
-                cryptoEntityDataMapper.transformCollection(it)
+                cryptoEntityDataMapper.transformCollection(it.coins)
             }
     }
 }
