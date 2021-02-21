@@ -1,6 +1,5 @@
 package us.azhimkulov.cryptocurrency.view.viewmodel
 
-import android.util.Log
 import androidx.databinding.ObservableField
 import io.reactivex.observers.DisposableObserver
 import us.azhimkulov.cryptocurrency.R
@@ -14,19 +13,24 @@ import javax.inject.Inject
  */
 class CryptoCollectionViewModel @Inject constructor(
     private val getCrypts: GetCrypts
-) : UltimateAdapter.UltimateAdapterDataSource {
+) : LoadingViewModel(), UltimateAdapter.UltimateAdapterDataSource {
+
     val ultimateAdapter = UltimateAdapter.newInstance()
     var isLoading: ObservableField<Boolean> = ObservableField(false)
 
     private val collection = mutableListOf<CryptoModel>()
 
-    fun onViewCreated() {
+    init {
         setupAdapter()
     }
 
-    fun onResume() {
+    override fun onResume() {
         isLoading.set(true)
         getCrypts.execute(CryptsObserver())
+    }
+
+    override fun onDestroy() {
+        getCrypts.dispose()
     }
 
     override fun recyclerView(): Int {
@@ -42,15 +46,23 @@ class CryptoCollectionViewModel @Inject constructor(
         ultimateAdapter.dataSource = this
     }
 
+    private fun setCollection(models: Collection<CryptoModel>) {
+        collection.clear()
+        collection.addAll(models)
+    }
+
+    private fun updateCollectionView() {
+        ultimateAdapter.notifyDataSetChanged()
+    }
+
     private inner class CryptsObserver : DisposableObserver<Collection<CryptoModel>>() {
         override fun onNext(t: Collection<CryptoModel>) {
-            collection.clear()
-            collection.addAll(t)
-            ultimateAdapter.notifyDataSetChanged()
+            setCollection(t)
+            updateCollectionView()
         }
 
         override fun onError(e: Throwable) {
-            Log.d("OBSERVABLE_FAILED", e.message ?: "Throwable message is empty")
+            onObservableFailed(e, getString(R.string.userFriendly_errorMessage))
             isLoading.set(false)
         }
 

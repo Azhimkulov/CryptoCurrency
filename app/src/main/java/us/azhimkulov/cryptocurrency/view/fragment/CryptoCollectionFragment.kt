@@ -9,6 +9,7 @@ import us.azhimkulov.cryptocurrency.R
 import us.azhimkulov.cryptocurrency.databinding.FragmentCryptoCollectionBinding
 import us.azhimkulov.cryptocurrency.internal.di.component.CryptoCollectionComponent
 import us.azhimkulov.cryptocurrency.view.viewmodel.CryptoCollectionViewModel
+import us.azhimkulov.cryptocurrency.view.viewmodel.LoadingViewModel
 import javax.inject.Inject
 
 /**
@@ -30,6 +31,7 @@ class CryptoCollectionFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getComponent(CryptoCollectionComponent::class.java).inject(this)
+        lifecycle.addObserver(cryptoCollectionViewModel)
     }
 
     override fun onCreateView(
@@ -43,15 +45,7 @@ class CryptoCollectionFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        cryptoCollectionViewModel.onViewCreated()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        cryptoCollectionViewModel.onResume()
+    override fun provideLoadingViewModel(): LoadingViewModel {
+        return cryptoCollectionViewModel
     }
 }
