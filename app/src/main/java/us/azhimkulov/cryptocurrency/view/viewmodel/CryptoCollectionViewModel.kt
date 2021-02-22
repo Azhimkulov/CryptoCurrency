@@ -3,6 +3,8 @@ package us.azhimkulov.cryptocurrency.view.viewmodel
 import androidx.databinding.ObservableField
 import io.reactivex.observers.DisposableObserver
 import us.azhimkulov.cryptocurrency.R
+import us.azhimkulov.cryptocurrency.helper.text_changed_delay.DelayTextChangeListener
+import us.azhimkulov.cryptocurrency.helper.text_changed_delay.factory.DelayTextChangeListenerFactory
 import us.azhimkulov.cryptocurrency.view.adapter.UltimateAdapter
 import us.azhimkulov.domain.interactor.GetCrypts
 import us.azhimkulov.domain.model.CryptoModel
@@ -12,20 +14,25 @@ import javax.inject.Inject
  * Created by azamat  on 2/21/21.
  */
 class CryptoCollectionViewModel @Inject constructor(
-    private val getCrypts: GetCrypts
+    private val getCrypts: GetCrypts,
+    delayTextChangeListenerFactory: DelayTextChangeListenerFactory
 ) : LoadingViewModel(), UltimateAdapter.UltimateAdapterDataSource {
 
     val ultimateAdapter = UltimateAdapter.newInstance()
     var isLoading: ObservableField<Boolean> = ObservableField(false)
     val afterTextChanged: (String?) -> Unit = { query ->
-        getCrypts.execute(CryptsObserver(), query)
+        queryDelayTextChangeListener.textChanged {
+            getCrypts.execute(CryptsObserver(), query)
+        }
     }
 
     private var isInitialize = false
     private val collection = mutableListOf<CryptoModel>()
+    private val queryDelayTextChangeListener: DelayTextChangeListener
 
     init {
         setupAdapter()
+        queryDelayTextChangeListener = delayTextChangeListenerFactory.create()
     }
 
     override fun onResume() {
