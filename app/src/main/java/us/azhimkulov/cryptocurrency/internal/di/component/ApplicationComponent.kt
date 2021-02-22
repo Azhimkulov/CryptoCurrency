@@ -4,6 +4,9 @@ import android.content.Context
 import dagger.Component
 import us.azhimkulov.cryptocurrency.view.activity.MainActivity
 import us.azhimkulov.cryptocurrency.internal.di.module.ApplicationModule
+import us.azhimkulov.data.persistence.realm.executor.RxRealmExecutorsProvider
+import us.azhimkulov.data.persistence.realm.provider.RealmProvider
+import us.azhimkulov.data.persistence.realm.unit_of_work.factory.RealmUnitOfWorkFactory
 import us.azhimkulov.data.rest.RestClient
 import us.azhimkulov.domain.executor.PostExecutionThread
 import us.azhimkulov.domain.executor.ThreadExecutor
@@ -21,4 +24,7 @@ interface ApplicationComponent {
     fun threadExecutor(): ThreadExecutor
     fun postExecutionThread(): PostExecutionThread
     fun restClient(): RestClient
+    fun rxRealmExecutorsProvider(): RxRealmExecutorsProvider
+    fun realmUnitOfWorkFactory(): RealmUnitOfWorkFactory
+    fun realmProvider(): RealmProvider
 }

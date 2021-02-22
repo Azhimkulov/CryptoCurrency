@@ -1,8 +1,10 @@
 package us.azhimkulov.data.repository
 
+import android.util.Log
 import io.reactivex.Observable
 import us.azhimkulov.data.entity.mapper.CryptoEntityDataMapper
-import us.azhimkulov.data.rest.RestClient
+import us.azhimkulov.data.source.CryptoDataStoreFactory
+import us.azhimkulov.data.source.CryptoRemoteDataStore
 import us.azhimkulov.domain.model.CryptoModel
 import us.azhimkulov.domain.repository.CryptoRepository
 import javax.inject.Inject
@@ -11,21 +13,23 @@ import javax.inject.Inject
  * Created by azamat  on 2/21/21.
  */
 class CryptoDataRepository @Inject constructor(
-    private val restClient: RestClient,
+    private val dataStoreFactory: CryptoDataStoreFactory,
     private val cryptoEntityDataMapper: CryptoEntityDataMapper
 ) : CryptoRepository {
 
-    companion object {
-        private const val SKIP_CONSTANT = 0
-        private const val LIMIT_CONSTANT = 20
-        private const val CURRENCY_CONSTANT = "EUR"
-    }
-
     override fun getCrypts(query: String?): Observable<Collection<CryptoModel>> {
-        return restClient.getCryptoApi()
-            .getCoins(SKIP_CONSTANT, LIMIT_CONSTANT, CURRENCY_CONSTANT)
+        val dataStore = dataStoreFactory.retrieveDataStore()
+        return dataStore.getCrypts()
+            .flatMap {
+                if (dataStore is CryptoRemoteDataStore) {
+                    dataStoreFactory.retrieveLocaleDataStore().saveCrypts(it)
+                        .andThen(Observable.just(it))
+                } else {
+                    Observable.just(it)
+                }
+            }
             .map { response ->
-                cryptoEntityDataMapper.transformCollection(response.coins)
+                return@map cryptoEntityDataMapper.transformCollection(response)
                     .filter { it.name.contains(query ?: "", true) }
             }
     }

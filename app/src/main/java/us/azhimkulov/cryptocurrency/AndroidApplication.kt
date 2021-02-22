@@ -1,6 +1,7 @@
 package us.azhimkulov.cryptocurrency
 
 import android.app.Application
+import io.realm.Realm
 import us.azhimkulov.cryptocurrency.internal.di.component.ApplicationComponent
 import us.azhimkulov.cryptocurrency.internal.di.component.DaggerApplicationComponent
 import us.azhimkulov.cryptocurrency.internal.di.module.ApplicationModule
@@ -13,7 +14,12 @@ class AndroidApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        initializePersistenceStorage()
         initializeInjector()
+    }
+
+    private fun initializePersistenceStorage() {
+        Realm.init(this)
     }
 
     private fun initializeInjector() {
