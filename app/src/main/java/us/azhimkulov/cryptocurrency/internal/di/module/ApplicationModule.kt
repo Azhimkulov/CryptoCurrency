@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import us.azhimkulov.cryptocurrency.AndroidApplication
 import us.azhimkulov.cryptocurrency.UIThread
+import us.azhimkulov.data.cache.PreferencesHelper
 import us.azhimkulov.data.executor.JobExecutor
 import us.azhimkulov.data.persistence.realm.executor.RxRealmExecutorsProvider
 import us.azhimkulov.data.persistence.realm.executor.RxRealmExecutorsProviderImpl
@@ -14,6 +15,8 @@ import us.azhimkulov.data.persistence.realm.unit_of_work.factory.RealmUnitOfWork
 import us.azhimkulov.data.persistence.realm.unit_of_work.factory.RealmUnitOfWorkFactoryImpl
 import us.azhimkulov.data.rest.RestClient
 import us.azhimkulov.data.rest.RestClientImpl
+import us.azhimkulov.data.source.CryptoLocalDataBehaviour
+import us.azhimkulov.data.source.CryptoLocalDataBehaviourImpl
 import us.azhimkulov.domain.executor.PostExecutionThread
 import us.azhimkulov.domain.executor.ThreadExecutor
 import javax.inject.Singleton
@@ -65,5 +68,16 @@ class ApplicationModule(private val application: AndroidApplication) {
     @Singleton
     fun provideRealmProvider(): RealmProvider {
         return RealmProviderImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCryptoLocalDataBehaviour(
+        realmProvider: RealmProvider,
+        preferencesHelper: PreferencesHelper
+    ): CryptoLocalDataBehaviour {
+        return CryptoLocalDataBehaviourImpl(
+            realmProvider, preferencesHelper
+        )
     }
 }

@@ -1,6 +1,5 @@
 package us.azhimkulov.data.repository
 
-import android.util.Log
 import io.reactivex.Observable
 import us.azhimkulov.data.entity.mapper.CryptoEntityDataMapper
 import us.azhimkulov.data.source.CryptoDataStoreFactory

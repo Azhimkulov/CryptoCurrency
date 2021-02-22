@@ -4,6 +4,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import us.azhimkulov.data.entity.CryptoEntity
 import us.azhimkulov.data.rest.RestClient
+import java.lang.UnsupportedOperationException
 import javax.inject.Inject
 
 /**
@@ -26,6 +27,6 @@ class CryptoRemoteDataStore @Inject constructor(
     }
 
     override fun saveCrypts(collection: Collection<CryptoEntity>): Completable {
-        TODO("Not yet implemented")
+        throw UnsupportedOperationException()
     }
 }
