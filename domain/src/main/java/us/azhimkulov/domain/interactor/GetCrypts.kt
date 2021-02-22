@@ -20,7 +20,7 @@ class GetCrypts @Inject constructor(
         postExecutionThread
     ) {
 
-    override fun buildUseCaseObservable(params: String?): Observable<Collection<CryptoModel>> {
+    public override fun buildUseCaseObservable(params: String?): Observable<Collection<CryptoModel>> {
         return cryptoRepository.getCrypts(params)
     }
 }

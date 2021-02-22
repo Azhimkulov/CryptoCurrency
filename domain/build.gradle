@@ -8,13 +8,19 @@ configurations {
 dependencies {
     def domainDependencies = rootProject.ext.domainDependencies
     def kotlinDependencies = rootProject.ext.kotlinDependencies
+    def domainTestDependencies = rootProject.ext.domainTestDependencies
 
     compileOnly domainDependencies.javaxAnnotation
 
     implementation domainDependencies.javaxInject
     implementation domainDependencies.rxJava
-
     implementation kotlinDependencies.kotlinLibrary
+
+    testImplementation domainTestDependencies.junit
+    testImplementation domainTestDependencies.mockito
+    testImplementation domainTestDependencies.jUnit4Runner
+    testImplementation domainTestDependencies.kotlinTestJUnit
+    testImplementation domainTestDependencies.assertj
 }
 
 sourceSets {
