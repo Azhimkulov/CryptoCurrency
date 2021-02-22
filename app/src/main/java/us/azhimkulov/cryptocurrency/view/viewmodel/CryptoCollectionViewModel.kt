@@ -17,7 +17,11 @@ class CryptoCollectionViewModel @Inject constructor(
 
     val ultimateAdapter = UltimateAdapter.newInstance()
     var isLoading: ObservableField<Boolean> = ObservableField(false)
+    val afterTextChanged: (String?) -> Unit = { query ->
+        getCrypts.execute(CryptsObserver(), query)
+    }
 
+    private var isInitialize = false
     private val collection = mutableListOf<CryptoModel>()
 
     init {
@@ -25,8 +29,12 @@ class CryptoCollectionViewModel @Inject constructor(
     }
 
     override fun onResume() {
-        isLoading.set(true)
-        getCrypts.execute(CryptsObserver())
+        super.onResume()
+        if (!isInitialize) {
+            isInitialize = true
+            isLoading.set(true)
+            getCrypts.execute(CryptsObserver())
+        }
     }
 
     override fun onDestroy() {

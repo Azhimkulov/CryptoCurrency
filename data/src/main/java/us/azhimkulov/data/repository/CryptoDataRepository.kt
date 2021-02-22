@@ -21,11 +21,12 @@ class CryptoDataRepository @Inject constructor(
         private const val CURRENCY_CONSTANT = "EUR"
     }
 
-    override fun getCrypts(): Observable<Collection<CryptoModel>> {
+    override fun getCrypts(query: String?): Observable<Collection<CryptoModel>> {
         return restClient.getCryptoApi()
             .getCoins(SKIP_CONSTANT, LIMIT_CONSTANT, CURRENCY_CONSTANT)
-            .map {
-                cryptoEntityDataMapper.transformCollection(it.coins)
+            .map { response ->
+                cryptoEntityDataMapper.transformCollection(response.coins)
+                    .filter { it.name.contains(query ?: "", true) }
             }
     }
 }

@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import us.azhimkulov.cryptocurrency.R
 import us.azhimkulov.cryptocurrency.databinding.FragmentCryptoCollectionBinding
 import us.azhimkulov.cryptocurrency.internal.di.component.CryptoCollectionComponent
 import us.azhimkulov.cryptocurrency.view.viewmodel.CryptoCollectionViewModel
 import us.azhimkulov.cryptocurrency.view.viewmodel.LoadingViewModel
+import us.azhimkulov.cryptocurrency.view.viewmodel.factory.CryptoCollectionViewModelFactory
 import javax.inject.Inject
 
 /**
@@ -18,7 +20,8 @@ import javax.inject.Inject
 class CryptoCollectionFragment : BaseFragment() {
 
     @Inject
-    lateinit var cryptoCollectionViewModel: CryptoCollectionViewModel
+    lateinit var cryptoCollectionViewModelFactory: CryptoCollectionViewModelFactory
+    private val cryptoCollectionViewModel: CryptoCollectionViewModel by activityViewModels { cryptoCollectionViewModelFactory }
     private lateinit var binding: FragmentCryptoCollectionBinding
 
     companion object {
@@ -40,7 +43,12 @@ class CryptoCollectionFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_crypto_collection, container, false)
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_crypto_collection,
+                container,
+                false
+            )
         binding.viewModel = cryptoCollectionViewModel
         return binding.root
     }

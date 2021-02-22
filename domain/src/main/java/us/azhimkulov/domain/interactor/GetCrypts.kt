@@ -15,12 +15,12 @@ class GetCrypts @Inject constructor(
     threadExecutor: ThreadExecutor,
     postExecutionThread: PostExecutionThread
 ) :
-    UseCase<Collection<CryptoModel>, Void?>(
+    UseCase<Collection<CryptoModel>, String?>(
         threadExecutor,
         postExecutionThread
     ) {
 
-    override fun buildUseCaseObservable(params: Void?): Observable<Collection<CryptoModel>> {
-        return cryptoRepository.getCrypts()
+    override fun buildUseCaseObservable(params: String?): Observable<Collection<CryptoModel>> {
+        return cryptoRepository.getCrypts(params)
     }
 }

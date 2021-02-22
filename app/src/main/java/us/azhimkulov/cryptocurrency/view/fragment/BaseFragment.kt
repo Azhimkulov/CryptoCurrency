@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import us.azhimkulov.cryptocurrency.internal.di.HasComponent
 import us.azhimkulov.cryptocurrency.model.ToastDuration
 import us.azhimkulov.cryptocurrency.view.viewmodel.LoadingViewModel
@@ -27,8 +28,12 @@ abstract class BaseFragment : Fragment() {
 
     private fun setupLoadingViewModel() {
         provideLoadingViewModel()?.let {
-            it.onToastShow = { message, duration -> showToast(message, duration) }
-            it.onAlertDialogShow = { alertDialog -> showAlertDialog(alertDialog) }
+            it.setToast.observe(context as LifecycleOwner) { messageAndDuration ->
+                showToast(
+                    messageAndDuration.first,
+                    messageAndDuration.second
+                )
+            }
             it.context = { context }
         }
     }
@@ -37,10 +42,6 @@ abstract class BaseFragment : Fragment() {
         context?.let {
             Toast.makeText(it, message, duration.value).show()
         }
-    }
-
-    private fun showAlertDialog(alertDialog: AlertDialog) {
-        alertDialog.show()
     }
 
     abstract fun provideLoadingViewModel(): LoadingViewModel?

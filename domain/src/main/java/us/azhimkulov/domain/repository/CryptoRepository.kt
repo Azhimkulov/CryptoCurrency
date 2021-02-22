@@ -7,5 +7,5 @@ import us.azhimkulov.domain.model.CryptoModel
  * Created by azamat  on 2/21/21.
  */
 interface CryptoRepository {
-    fun getCrypts(): Observable<Collection<CryptoModel>>
+    fun getCrypts(query: String?): Observable<Collection<CryptoModel>>
 }

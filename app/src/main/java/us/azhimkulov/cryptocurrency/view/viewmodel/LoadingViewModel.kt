@@ -3,6 +3,8 @@ package us.azhimkulov.cryptocurrency.view.viewmodel
 import android.content.Context
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import us.azhimkulov.cryptocurrency.R
 import us.azhimkulov.cryptocurrency.model.ToastDuration
 
@@ -11,8 +13,7 @@ import us.azhimkulov.cryptocurrency.model.ToastDuration
  */
 abstract class LoadingViewModel : LifecycleObserverViewModel() {
 
-    lateinit var onToastShow: (String, ToastDuration) -> Unit
-    lateinit var onAlertDialogShow: (AlertDialog) -> Unit
+    val setToast = MutableLiveData<Pair<String, ToastDuration>>()
     lateinit var context: () -> Context?
 
     fun onObservableFailed(throwable: Throwable, defaultErrorMessage: String) {
@@ -24,11 +25,7 @@ abstract class LoadingViewModel : LifecycleObserverViewModel() {
     }
 
     fun showToast(message: String, duration: ToastDuration) {
-        onToastShow(message, duration)
-    }
-
-    fun showAlertDialog(alertDialog: AlertDialog) {
-        onAlertDialogShow(alertDialog)
+        setToast.value = Pair(message, duration)
     }
 
     protected fun getString(resourceId: Int): String {

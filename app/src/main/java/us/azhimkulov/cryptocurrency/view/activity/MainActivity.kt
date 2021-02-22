@@ -1,6 +1,7 @@
 package us.azhimkulov.cryptocurrency.view.activity
 
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_with_fragment.*
 import us.azhimkulov.cryptocurrency.R
 import us.azhimkulov.cryptocurrency.internal.di.HasComponent
@@ -8,6 +9,7 @@ import us.azhimkulov.cryptocurrency.internal.di.component.CryptoCollectionCompon
 import us.azhimkulov.cryptocurrency.internal.di.component.DaggerCryptoCollectionComponent
 import us.azhimkulov.cryptocurrency.internal.di.module.CryptoCollectionModule
 import us.azhimkulov.cryptocurrency.view.fragment.CryptoCollectionFragment
+import us.azhimkulov.cryptocurrency.view.viewmodel.CryptoCollectionViewModel
 
 class MainActivity : BaseActivity(), HasComponent<CryptoCollectionComponent> {
     private var cryptoCollectionComponent: CryptoCollectionComponent? = null
