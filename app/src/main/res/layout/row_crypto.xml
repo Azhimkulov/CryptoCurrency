@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="us.azhimkulov.domain.model.CryptoModel" />
+
+        <variable
+            name="adapter"
+            type="us.azhimkulov.cryptocurrency.view.adapter.UltimateAdapter" />
+
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageView_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:url="@{model.icon}"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/textView_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{model.name}"
+            android:textColor="@color/colorDarkGrey"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/imageView_icon"
+            app:layout_constraintTop_toTopOf="@id/imageView_icon"
+            tools:text="Bitcoin" />
+
+        <TextView
+            android:id="@+id/textView_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{model.symbol}"
+            android:textColor="@color/colorMidGrey"
+            app:layout_constraintBottom_toBottomOf="@id/imageView_icon"
+            app:layout_constraintStart_toStartOf="@id/textView_name"
+            app:layout_constraintTop_toBottomOf="@id/textView_name"
+            tools:text="BTC" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorDarkGrey"
+            android:textSize="18sp"
+            android:text="@{model.userFriendlyPrice}"
+            app:layout_constraintBottom_toBottomOf="@id/imageView_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imageView_icon"
+            tools:text="234234" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

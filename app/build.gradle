@@ -57,6 +57,11 @@ dependencies {
     implementation presentationDependencies.androidConstraintLayout
     implementation presentationDependencies.dexter
 
+    implementation presentationDependencies.glide
+    annotationProcessor presentationDependencies.glideCompiler
+    implementation presentationDependencies.lifecycleViewModel
+    implementation presentationDependencies.fragmentKtx
+
     kapt presentationDependencies.databinding
     annotationProcessor presentationDependencies.databinding
 
@@ -71,4 +76,10 @@ dependencies {
     androidTestImplementation presentationTestDependencies.testRunner
     androidTestImplementation presentationTestDependencies.jUnit4Runner
     androidTestImplementation presentationTestDependencies.kotlinTestJUnit
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }

@@ -24,14 +24,18 @@ ext {
     rxAndroidVersion = '2.1.1'
     retrofitVersion = '2.6.1'
     retrofitLoggingVersion = '4.1.0'
+    glideVersion = '4.12.0'
+    lifecycleViewModelVersion = "2.3.0"
+    fragmentKtxVersion = '1.3.0'
 
     //Testing
     jUnit4RunnerVersion = '1.1.1'
     espressoVersion = '3.1.1'
     robolectricVersion = '3.8'
     jUnitVersion = '4.12'
-    assertJVersion = '1.7.1'
+    assertJVersion = '3.8.0'
     mockitoVersion = '1.10.9'
+    mockitoKotlinVersion = '1.5.0'
     dexmakerVersion = '1.0'
     espressoExtensionVersion = '1.4'
     instrumentationTestVersion = '1.1.0'
@@ -50,6 +54,10 @@ ext {
             javaxAnnotation        : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             rxJava                 : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
             rxAndroid              : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            glide                  : "com.github.bumptech.glide:glide:${glideVersion}",
+            glideCompiler          : "com.github.bumptech.glide:compiler:${glideVersion}",
+            lifecycleViewModel     : "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycleViewModelVersion}",
+            fragmentKtx            : "androidx.fragment:fragment-ktx:${fragmentKtxVersion}"
     ]
 
     presentationTestDependencies = [
@@ -70,6 +78,14 @@ ext {
             javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             javaxInject    : "javax.inject:javax.inject:${javaxInjectVersion}",
             rxJava         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+    ]
+
+    domainTestDependencies = [
+            junit:              "junit:junit:${jUnitVersion}",
+            mockito:            "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
+            jUnit4Runner     : "androidx.test.ext:junit:${jUnit4RunnerVersion}",
+            kotlinTestJUnit  : "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version",
+            assertj:            "org.assertj:assertj-core:${assertJVersion}"
     ]
 
     dataDependencies = [
