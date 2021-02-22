@@ -13,7 +13,7 @@ class CryptoLocalDataBehaviourImpl @Inject constructor(
     private val preferencesHelper: PreferencesHelper
 ) : CryptoLocalDataBehaviour {
 
-    private val EXPIRATION_TIME = (10 * 1 * 1000).toLong()
+    private val EXPIRATION_TIME = (60 * 1 * 1000).toLong()
 
     override fun setLastCacheTime() {
         val currentTime = System.currentTimeMillis()

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import us.azhimkulov.cryptocurrency.R
+import us.azhimkulov.cryptocurrency.exception.ErrorMessageFactory
 import us.azhimkulov.cryptocurrency.model.ToastDuration
 
 /**
@@ -21,7 +22,8 @@ abstract class LoadingViewModel : LifecycleObserverViewModel() {
             getString(R.string.observableFailed_tag),
             throwable.message ?: getString(R.string.defaultThrowable_emptyMessage)
         )
-        showToast(throwable.localizedMessage ?: defaultErrorMessage, ToastDuration.SHORT)
+        val errorMessage = ErrorMessageFactory.create(throwable)
+        showToast(errorMessage ?: defaultErrorMessage, ToastDuration.SHORT)
     }
 
     fun showToast(message: String, duration: ToastDuration) {

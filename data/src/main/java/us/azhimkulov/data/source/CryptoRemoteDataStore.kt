@@ -4,6 +4,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import us.azhimkulov.data.entity.CryptoEntity
 import us.azhimkulov.data.rest.RestClient
+import us.azhimkulov.data.utility.parseBadRequestWithMessage
 import java.lang.UnsupportedOperationException
 import javax.inject.Inject
 
@@ -24,6 +25,9 @@ class CryptoRemoteDataStore @Inject constructor(
         return restClient.getCryptoApi()
             .getCoins(SKIP_CONSTANT, LIMIT_CONSTANT, CURRENCY_CONSTANT)
             .map { it.coins }
+            .onErrorResumeNext { error: Throwable ->
+                Observable.error(parseBadRequestWithMessage(error))
+            }
     }
 
     override fun saveCrypts(collection: Collection<CryptoEntity>): Completable {
