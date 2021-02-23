@@ -4,7 +4,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import us.azhimkulov.data.entity.CryptoEntity
 import us.azhimkulov.data.rest.RestClient
-import us.azhimkulov.data.utility.parseBadRequestWithMessage
+import us.azhimkulov.data.utility.network.exception.parser.parseBadRequestWithMessage
 import java.lang.UnsupportedOperationException
 import javax.inject.Inject
 

@@ -19,7 +19,7 @@ class CryptoDataStoreFactory @Inject constructor(
         }
     }
 
-    private fun retrieveRemoteDataStore(): CryptoDataStore {
+    fun retrieveRemoteDataStore(): CryptoDataStore {
         return cryptoRemoteDataStore
     }
 

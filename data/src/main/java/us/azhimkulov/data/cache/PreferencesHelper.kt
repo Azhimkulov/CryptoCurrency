@@ -11,9 +11,9 @@ import javax.inject.Singleton
 @Singleton
 class PreferencesHelper @Inject constructor(context: Context) {
     companion object {
-        private val PREF_CRYPTO_PREFERENCE_NAME = "us.azhimkulov.data.preference"
-        private val KEY_LAST_CACHE = "LAST_CACHE_LONG_TIME"
-        private val DEFAULT_LAST_CACHE = 0L
+        private const val PREF_CRYPTO_PREFERENCE_NAME = "us.azhimkulov.data.preference"
+        private const val KEY_LAST_CACHE = "LAST_CACHE_LONG_TIME"
+        private const val DEFAULT_LAST_CACHE = 0L
     }
 
     private val sharedPreferences: SharedPreferences =

@@ -1,4 +1,4 @@
-package us.azhimkulov.data.utility
+package us.azhimkulov.data.utility.network.exception.parser
 
 import retrofit2.HttpException
 import us.azhimkulov.data.exception.BadRequestWithMessageException

@@ -13,7 +13,7 @@ class CryptoModel(
     val name: String,
     val symbol: String,
     val price: Double,
-    val websiteUrl: String
+    val websiteUrl: String?
 ) {
     fun getUserFriendlyPrice(): String {
         val df = DecimalFormat("#.##")

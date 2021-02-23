@@ -4,7 +4,6 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Observable
-import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import us.azhimkulov.domain.executor.PostExecutionThread
@@ -44,16 +43,16 @@ class GetCryptsTest {
     @Test
     fun buildUseCaseObservableCompletes() {
         stubCryptoRepositoryGetCrypts(Observable.just(CryptoFactory.makeCollection(3)))
-        val testObserver = getCrypts.buildUseCaseObservable(null)
-        testObserver.subscribe { assertTrue(true) }
+        val testObserver = getCrypts.buildUseCaseObservable(null).test()
+        testObserver.assertComplete()
     }
 
     @Test
     fun buildUseCaseObservableReturnsData() {
         val crypts = CryptoFactory.makeCollection(5)
         stubCryptoRepositoryGetCrypts(Observable.just(crypts))
-        val testObserver = getCrypts.buildUseCaseObservable(null)
-        testObserver.subscribe { assertEquals(it, crypts) }
+        val testObserver = getCrypts.buildUseCaseObservable(null).test()
+        testObserver.assertValue(crypts)
     }
 
     private fun stubCryptoRepositoryGetCrypts(observable: Observable<Collection<CryptoModel>>) {
